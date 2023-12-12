@@ -28,7 +28,7 @@ Directory: `data` contains the following:
 4. **matlab-general-functions:**
    - general MATLAB functions crucial for running the codes in Figure02 to Figure06, facilitating data analysis and figure generation.
 
-Directories `Figure01` to `Figure07` contains the corresponding figures and MATALB analysis codes. These codes are generated in MATLAB R2021a.
+Directories `Figure01` to `Figure07` contain the corresponding figures and MATLAB analysis codes. These codes are generated in MATLAB R2021a.
 
 **Figure 1.** Dissecting Osmostress regulation of Volume Change, Cell Growth and Hog1 Signaling.
 ![Figure 1](Figure01/Jashnsaz_et_al_Figure01_v03-01.jpg)
