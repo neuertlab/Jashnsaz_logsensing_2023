@@ -1,4 +1,3 @@
-
 %% load data
 warning('all','off')
 clear all
@@ -26,6 +25,12 @@ addpath('../../data/matlab-general-functions/')
 Hog1SignalingData=Hog1SignalingData2; 
 DataSet1 = HogDataSet.DataSet1;
 DataSet3 = HogDataSet.DataSet3;
+
+%% Convert area into volume
+for ii = 1:48;
+    Hog1SignalingData(ii).Volm = (Hog1SignalingData2(ii).Volm).^1.5;
+end;
+
 
 % clearvars -except Hog1SignalingData; 
 %% set dir
@@ -121,7 +126,7 @@ for i=[1 2]
         data = Hog1SignalingData(IDS(i,conc)); data.tt(1)
         [time,Im,Is] = get_ImIs(data,-2,25+3,'Vol'); size(Im)
         shadedErrorBar(time,Im0-Im,Is,{'LineWidth', lw, 'color',cmap{ii+2}(count,:)}, 0.2); 
-        box on; xlim([-2.5 32.5]); ylim([-.02 .22]); yticks([0:.1:1]); xticks([0:25:50]); xticklabels([]); yticklabels([]); 
+        box on; xlim([-2.5 32.5]); ylim([-.02 .33]); yticks([0:.1:1]); xticks([0:25:50]); xticklabels([]); yticklabels([]); 
         % if ii>=1; yticklabels([]); end
         count = count + 1; 
     end
@@ -156,7 +161,7 @@ for i=4:5
 	shadedErrorBar(time,sumVOLm(:,i),sumVOLs(:,i),{'LineWidth', lw, 'color',cmap{2}(ii,:)}, 0.2); 
     ii=ii+1; 
 end
-box on; xlim([-2.5 32.5]); ylim([-.02 .22]); yticks([0:.1:1]); xticks([0:25:50]); xticklabels([]); yticklabels([]); 
+box on; xlim([-2.5 32.5]); ylim([-.02 .33]); yticks([0:.1:1]); xticks([0:25:50]); xticklabels([]); yticklabels([]); 
 %if ii>=1; yticklabels([]); end
 
 %% volume linear and exponential stimuli
@@ -209,16 +214,19 @@ end
 box on; xlim([-2.5 32.5]); ylim([-.02 1.22]); xticks([0:25:50]); xticklabels([]); yticklabels([]); yticks([0:.5:1])
 %% save figure 
 set(findall(gcf,'-property','FontSize'),'FontSize',6, 'defaultTextFontSize',6, 'FontName', 'Helvetica')
-figname = [dir_name, '/HOGt1expsum'];  
+figname = [dir_name, '/HOGt1expsum_GN'];  
 print(figname,'-depsc', '-r600');
 
 %% plot pulsatile staircase, T = 16 min
-path0 = '/Users/hosseinjashnsaz/Dropbox (VU Basic Sciences)/Hossein Jashnsaz/Experiments/Diverse_kinetics_Hog1YFP_TimeLapse2/#7 data structure/'; 
+%path0 = '/Users/hosseinjashnsaz/Dropbox (VU Basic Sciences)/Hossein Jashnsaz/Experiments/Diverse_kinetics_Hog1YFP_TimeLapse2/#7 data structure/'; 
+path0 = '/Users/neuertg/VU Basic Sciences Dropbox/Gregor Neuert/Neuert lab/Hossein Jashnsaz/Experiments/Diverse_kinetics_Hog1YFP_TimeLapse2/#7 data structure/'; 
 DATA = load([path0, 'Hog1SignalingData_pulse_staircase2.mat']);
 Hog1SignalingData = DATA.Hog1SignalingData2;
 % pulse full, pulse 2nd, pulse 3rd, stair full, stair 2nd, stair 3rd 
 
-close; figure();clf; set(gcf, 'Units', 'centimeters', 'Position', [0 0 5.8 12], 'PaperUnits', 'centimeters', 'PaperSize', [5.8 12]); 
+
+% close; 
+figure();clf; set(gcf, 'Units', 'centimeters', 'Position', [0 0 5.8 12], 'PaperUnits', 'centimeters', 'PaperSize', [5.8 12]); 
 pulsestair_col = {[0 0 1], hex2rgb('090707')}; lww = {2,1}; lw=1; 
 ctr_col = .6*[1 1 1]; %ctrl
 
@@ -284,7 +292,7 @@ hh=subplotHJ(4,1,2,dy,dx); cla(hh); hold on; %grid on
 shadedErrorBar(time0,Im0-Im0,Is0,{'LineWidth', lw, 'color',ctr_col}, 0.2); 
 shadedErrorBar(time1,Im0-Im1,Is1,{'LineWidth', lw, 'color',pulsestair_col{1}}, 0.2); 
 shadedErrorBar(time2,Im0-Im2,Is2,{'LineWidth', lw, 'color',pulsestair_col{2}}, 0.2); 
-box on; xlim([-2 16*3+2]); ylim([-0.05 .21]);
+box on; xlim([-2 16*3+2]); ylim([-0.05 .35]);
 xticks([0:8:16*4]); yticks([0:.1:.8]); xticklabels([]); yticklabels([]); 
 
 % Hog1nuc
@@ -322,11 +330,20 @@ box on; xlim([-2 16*3+2]); ylim([-0.01 .71]);
 xticks([0:8:16*4]); yticks([0:mIm/2:2]); xticklabels([]); yticklabels([]); 
 
 set(findall(gcf,'-property','FontSize'),'FontSize',7, 'defaultTextFontSize',7, 'FontName', 'Helvetica')
-figname = [dir_name, '/pulse_stair'];  
+figname = [dir_name, '/pulse_stair_GN'];  
 print(figname,'-depsc', '-r600');
 
-%% Figure S5  
-close; figure();clf; set(gcf, 'Units', 'centimeters', 'Position', [0 0 20.5 14], 'PaperUnits', 'centimeters', 'PaperSize', [20.5 14]); 
+%% Figure S5 
+
+%% Convert area into volume
+for ii = 1:6;
+    Hog1SignalingData(ii).Volm = (Hog1SignalingData(ii).Volm).^1.5;
+end;
+
+
+
+%close; 
+figure();clf; set(gcf, 'Units', 'centimeters', 'Position', [0 0 20.5 14], 'PaperUnits', 'centimeters', 'PaperSize', [20.5 14]); 
 dx = 0.03; dy = 0.05; lw=1; lww={3,2}; 
 
 hh=subplotHJ(3,1,1,dy,dx); cla(hh); hold on; %grid on
@@ -353,8 +370,8 @@ data=Hog1SignalingData(3+i); data.tt([1 end])
 [time2,Im2,Is2] = get_ImIs(data,-3,14,'Vol'); 
 shadedErrorBar(time2,Im2,Is2,{'LineWidth', lw, 'color',pulsestair_col{2}}, 0.2);
 
-box on; xlim([-1.2 14.2-2]); ylim([0.89 1.11]);
-xticks([0:8:16]); yticks([.9:.1:1.1]); xticklabels(16*(i-1)+[0:8:16]); % yticklabels([]); 
+box on; xlim([-1.2 14.2-2]); ylim([0.85 1.15]);
+xticks([0:8:16]); yticks([.6:.1:2]); xticklabels(16*(i-1)+[0:8:16]); % yticklabels([]); 
 end
 
 % Hog1nuc
@@ -379,7 +396,7 @@ xticks([0:8:16]); xticklabels(16*(i-1)+[0:8:16]); yticklabels([]);
 end
 
 set(findall(gcf,'-property','FontSize'),'FontSize',7, 'defaultTextFontSize',7, 'FontName', 'Helvetica')
-figname = [dir_name, '/Figure_S5_pulse_stair'];  
+figname = [dir_name, '/Figure_S5_pulse_stair_GN'];  
 print(figname,'-depsc', '-r600');
 
 %% plot staircase 2
@@ -418,13 +435,13 @@ for i=size(ExperimentsID,2)
         data = DataSet3{7}; 
         shadedErrorBar(data.tt(1:length(data.mHog1nuc)),data.mHog1nuc,data.sHog1nuc,{'LineWidth', lw, 'color',stair_col}, 0.2); 
 %         box on; xlim([-2 tmax(i)+1]); ylim([-.02 1.22]); xticks([0:25:tmax(i)]);
-        box on; xlim([-2 75]); ylim([-.02 1.02]); xticks([0:25:tmax(i)]); yticks([0:.5:1])
+        box on; xlim([-2 75]); ylim([-.02 1.22]); xticks([0:25:tmax(i)]); yticks([0:.5:1])
         count = count + 1; 
     end
     ii = ii + 1; 
 end    
 
 set(findall(gcf,'-property','FontSize'),'FontSize',6, 'defaultTextFontSize',6, 'FontName', 'Helvetica')
-figname = [dir_name, '/HOGstair2'];  
+figname = [dir_name, '/HOGstair2_GN'];  
 print(figname,'-depsc', '-r600');
 
