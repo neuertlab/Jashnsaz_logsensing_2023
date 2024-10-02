@@ -17,7 +17,7 @@ time=-2.5:.1:27.5;
 parameters = [1 NaN 25 0 0]; % (y0,n,T0,T1,T2)
 polynomial_orders = [.01 .5 1 2 3 5 7 1]; % t0, t_sqr, t1, t2, t3, t5, t7, exp(t)
 
-load poly_order_vol % volume k fits
+load poly_order_vol_GN % volume k fits
 load poly_order_Hog1 % Hog1 k fits
 for conc = 1:5
 for j=1:4

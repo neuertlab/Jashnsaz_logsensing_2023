@@ -25,6 +25,13 @@ Hog1SignalingData=Hog1SignalingData2;
 DataSet1 = HogDataSet.DataSet1;
 DataSet3 = HogDataSet.DataSet3;
 
+% Convert area into volume
+AA = size(Hog1SignalingData,2);
+for ii = 1:48;
+    Hog1SignalingData(ii).Volm = (Hog1SignalingData2(ii).Volm).^1.5;
+end;
+
+
 %% figure handle
 close; figure(1); set(gcf, 'Units', 'centimeters', 'Position', [0 0 8 16], 'PaperUnits', 'centimeters', 'PaperSize', [8 16]);
 dx = 0.06; dy = 0.035; cmap = jet(7); lw=2; cmap([3 5],:)=.95*cmap([3 5],:); cmap = [cmap; hex2rgb('800080')]; cmap = [0,0,0;cmap]; 
@@ -98,7 +105,7 @@ for i=1:N2%size(ExperimentsID,2)
         count = count + 1; 
     end
 %     xlim([-3.5 50.5]); xticks([0:25:50]); ylim([.68 1.27]); yticks([.6:.1:1.4]); 
-    xlim([-3 28]); xticks([0:5:25]); ylim([.68 1.27]); yticks([.6:.1:1.4]); 
+    xlim([-3 28]); xticks([0:5:25]); ylim([.55 1.3]); yticks([.5:.1:1.5]); % ylim([.68 1.27]);
     set(gca,'GridLineStyle',':'); 
     end
 end
@@ -141,7 +148,7 @@ Vol0 = repmat(Hog1Volume.Vol(:,1,4),1,N1+1,N2)-Hog1Volume.Vol; % volume reductio
                 end
             end
         end
-        box on; xlim([-3 28]); xticks([0:5:25]); yticks([0:.1:.5]);
+        box on; xlim([-3 28]); ylim([-0.05 0.45]);xticks([0:5:25]); yticks([0:.1:.5]);
         set(gca,'GridLineStyle',':'); 
         end
     end 
@@ -170,7 +177,7 @@ Vol0 = repmat(Hog1Volume.Vol(:,1,4),1,N1+1,N2)-Hog1Volume.Vol; % volume reductio
         end
 %         boxplot(pars,'Positions',[2:8],'Colors',cmap(2:end,:),'PlotStyle', 'compact')      
 %         boxplot(reshape(best_params_1(:,i,:,1),N_fits,7),'Positions',[2:8],'Colors',cmap(2:end,:),'PlotStyle', 'compact')      
-        xlim([.5 N1+1.5]); xticks([0:1:N1+1]);xticklabels([]); ylim([.0 .33]); yticks([0:.1:.30]); % 0:1:N1+1
+        xlim([.5 N1+1.5]); xticks([0:1:N1+1]);xticklabels([]); ylim([.0 .45]); yticks([0:.1:.5]); % 0:1:N1+1
         set(gca,'GridLineStyle',':'); 
         end
     end

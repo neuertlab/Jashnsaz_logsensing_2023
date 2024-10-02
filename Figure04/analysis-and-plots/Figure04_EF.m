@@ -12,7 +12,7 @@ set(findall(gcf,'-property','FontSize'),'FontSize',8, 'defaultTextFontSize',8, '
 hh=subplotHJ(1,2,1,dy,dx); cla(hh); hold on; grid on; box on;
 set(groot,'defaultAxesTickLabelInterpreter','tex');
         
-load total_Vol_shrink % volume k fits
+load total_Vol_shrink_GN % volume k fits
 VSh = total_Vol_shrink./total_Vol_shrink(:,2); 
 conc=4; 
 for i=conc %1:size(VS,1)
@@ -27,7 +27,7 @@ end
 % errorbar([1:9],VSm, .5*VSs,.5*VSs,'linewidth',1, 'color', 0*[1 1 1])
 
 xlim([.5 size(VS,2)+.5]); xticks([0:1:size(VS,2)]);xticklabels([]); %ylim([.0 1.01]); yticks([0:.2:1]); % 0:1:N1+1
-set(gca,'YScale','log'); ylim([5e-3 1e0]); % yticks([0:.2:1]);
+set(gca,'YScale','log'); ylim([5e-3 2e0]);  %yticks([0:.2:2]);
 
 %% Growth rate vs volume shrink
 hh=subplotHJ(1,2,2,dy,dx); cla(hh); hold on; grid on; box on;
