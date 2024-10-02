@@ -25,6 +25,14 @@ load HogDataSet
 Hog1SignalingData=Hog1SignalingData2; 
 DataSet1 = HogDataSet.DataSet1;
 
+%% Convert area into volume
+AA = size(Hog1SignalingData,2);
+for ii = 1:48;
+    Hog1SignalingData(ii).Volm = (Hog1SignalingData2(ii).Volm).^1.5;
+end;
+
+
+
 %% plot stimuli all polynomials
 % close all
 % figure(); set(gcf, 'Units', 'centimeters', 'Position', [0 0 20 7.5], 'PaperUnits', 'centimeters', 'PaperSize', [20 7.5]); 
@@ -51,7 +59,7 @@ DataSet1 = HogDataSet.DataSet1;
 % figname = [dir_name, '/NaCl'];  
 % print(figname,'-depsc', '-r600');
 %% figure handle
-close; figure(1); set(gcf, 'Units', 'centimeters', 'Position', [0 0 21.5 6], 'PaperUnits', 'centimeters', 'PaperSize', [21.5 8]); 
+close; figure(11); set(gcf, 'Units', 'centimeters', 'Position', [0 0 21.5 6], 'PaperUnits', 'centimeters', 'PaperSize', [21.5 8]); 
 dx = 0.05; dy = 0.08; cmap = jet(7); lw=2; cmap([3 5],:)=.95*cmap([3 5],:);
 
 %% stimuli 
@@ -108,7 +116,7 @@ for i=4%size(ExperimentsID,2)
         Hog1Volume.TimeDelay(count+1) = numel(find(Hog1SignalingData(exp).tt(dp)<=0)); 
         count = count + 1; 
     end
-    box on; xlim([-3.5 50.5]); ylim([.72 1.27]); xticks([0:10:50]);
+    box on; xlim([-3.5 50.5]); ylim([.55 1.5]); xticks([0:10:50]); % ylim([.72 1.27]);
     set(gca,'GridLineStyle',':'); 
 end
 
@@ -140,5 +148,6 @@ figname = [dir_name, '/stimuli_cellvolume_Hog1'];
 print(figname,'-depsc', '-r600');
 %% save data for this figure
 % save('Figure03','-v7.3');
+% save('Figure03_GN','-v7.3');
 
 
