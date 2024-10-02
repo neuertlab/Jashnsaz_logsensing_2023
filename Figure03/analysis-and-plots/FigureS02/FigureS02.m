@@ -1,10 +1,21 @@
-path0 = '/Users/hosseinjashnsaz/Dropbox (VU Basic Sciences)/Hossein Jashnsaz/Experiments/Diverse_kinetics_Hog1YFP_TimeLapse2/#7 data structure/';
+clear all;
+addpath('/Users/neuertg/VU Basic Sciences Dropbox/Gregor Neuert/Neuert lab/Hossein Jashnsaz/manuscripts/Manuscript #3_Jashnsaz_et_al_LOGSENSING/Data-Analysis-Figures/data/matlab-general-functions');
+%path0 = '/Users/hosseinjashnsaz/Dropbox (VU Basic Sciences)/Hossein Jashnsaz/Experiments/Diverse_kinetics_Hog1YFP_TimeLapse2/#7 data structure/';
+path0 = '/Users/neuertg/VU Basic Sciences Dropbox/Gregor Neuert/Neuert lab/Hossein Jashnsaz/Experiments/Diverse_kinetics_Hog1YFP_TimeLapse2/#7 data structure/'; 
+
 DATA = load([path0, 'Hog1SignalingData.mat']); 
 Hog1SignalingData = DATA.Hog1SignalingData; 
 Hog1SignalingData2=Hog1SignalingData; 
 %% 
 dir_name = 'plots'; mkdir(dir_name);
 close all
+
+% %% Convert area into volume
+% for ii = 1:13;
+%     Hog1SignalingData(ii).Volm = (Hog1SignalingData2(ii).Volm).^1.5;
+% end;
+
+
 
 figure(1); set(gcf, 'Units', 'centimeters', 'Position', [0 0 24 16], 'PaperUnits', 'centimeters', 'PaperSize', [24 16]); 
 dx = 0.035; dy = 0.04; 
@@ -30,13 +41,16 @@ ylabel('NaCl (M)');
 % volume
 subplotHJ(3,4,5,dy,dx); hold on; grid on; 
 exps = [3 4 5]; dd = 1; 
-shift_vol = [0 .03195-.00822 .05661-.00822];  
+%shift_vol = [0 .03195-.00822 .05661-.00822];  
+shift_vol = [0.0081 0.0492 0.0850];  
+
 for i=1:3 
     exp=exps(i); 
-    [Hog1SignalingData, dp] = get_BiolReps_stats(exp, dd, Hog1SignalingData);          
+    [Hog1SignalingData, dp] = get_BiolReps_stats(exp, dd, Hog1SignalingData);       
+    Hog1SignalingData(exp).Volm = (Hog1SignalingData(exp).Volm).^1.5;
     shadedErrorBar(Hog1SignalingData(exp).tt(dp),-shift_vol(i)+Hog1SignalingData(exp).Volm(dp),Hog1SignalingData(exp).Vols(dp),{'LineWidth', lw, 'color',cols(i,:)}, 0.2); 
 end
-box on; xlim([-1.5 53.5]); ylim([.7 1.25]); 
+box on; xlim([-1.5 53.5]); ylim([.6 1.3]); 
 ylabel('Relative volume change');
 
 % Hog1
@@ -192,7 +206,7 @@ box on; xlim([-1.2 6.5]); ylim([-.05 0.85]); xticks([0:1:7]); yticks(.1*[0:1:7])
 ylabel('Hog1 nuclear localization'); 
 
 %% Hog1nuc and corrected Hog1nuc for 0min, 14min, 20min
-path0 = '/Users/hosseinjashnsaz/Dropbox (VU Basic Sciences)/Hossein Jashnsaz/Experiments/Diverse_kinetics_Hog1YFP_TimeLapse2/#7 data structure/';
+% path0 = '/Users/hosseinjashnsaz/Dropbox (VU Basic Sciences)/Hossein Jashnsaz/Experiments/Diverse_kinetics_Hog1YFP_TimeLapse2/#7 data structure/';
 DATA = load([path0, 'Hog1SignalingData_steps06M.mat']);
 Hog1SignalingData = DATA.Hog1SignalingData;
 Hog1SignalingData2=Hog1SignalingData; 
@@ -248,7 +262,7 @@ end
 
 %% save figures
 set(findall(gcf,'-property','FontSize'),'FontSize',7, 'defaultTextFontSize',7, 'FontName', 'Helvetica')
-figname = [dir_name, '/FigureS02_ShiftedSteps_and_Photobleach_Correction'];  
+figname = [dir_name, '/FigureS02_ShiftedSteps_and_Photobleach_Correction_GN'];  
 print(figname,'-depsc', '-r600');
 
 
